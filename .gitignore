@@ -8,6 +8,10 @@
 # testing
 /coverage
 
+#backend
+env
+__pycache__
+
 # production
 /build
 
