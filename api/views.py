@@ -72,3 +72,10 @@ def sampleFigures(id):
     id = id.replace('%20', ' ')
     figures = getFigures(id)
     return {'figures': figures}
+
+@main.route('/api/sample_exists/<id>')
+def sampleExists(id):
+    id = id.replace('%20', ' ')
+    exists = Sample.query.filter_by(id=id).first() is not None
+    print('does this sample exists? ', exists)
+    return {'exists': exists}

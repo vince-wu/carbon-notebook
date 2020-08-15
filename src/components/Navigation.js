@@ -7,6 +7,8 @@ import Nav from 'react-bootstrap/Nav'
 import Popout from './Popout'
 import { useHistory } from 'react-router-dom'
 
+import Search from './Search'
+
 function Navigation(){
     const history = useHistory();
     const routeChange = () =>{ 
@@ -25,12 +27,7 @@ function Navigation(){
                     New Sample
                 </Button>
                 <Popout show={show} handleClose={handleClose} setShow={setShow}/>
-                <Form inline>
-                    <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                    <Button 
-                        className="mr-sm-2"
-                    >Search</Button>
-                </Form>
+                <Search/>
             </Nav>
         </Navbar>
     )
