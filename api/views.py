@@ -39,6 +39,7 @@ def edit_sample():
 @main.route('/api/delete_sample', methods=['POST'])
 def delete_sample():
     id = request.get_json()
+    id = id.replace('%20', ' ')
     print("id", id)
     Sample.query.filter_by(id=id).delete()
     db.session.commit()
@@ -60,6 +61,7 @@ def samples():
 
 @main.route('/api/sample/<id>')
 def sampleReport(id):
+    id = id.replace('%20', ' ')
     row = Sample.query.filter_by(id=id).first()
     sample = dict((col, getattr(row, col)) for col in row.__table__.columns.keys())
     print(sample)
@@ -67,5 +69,6 @@ def sampleReport(id):
 
 @main.route('/api/figures/<id>')
 def sampleFigures(id):
+    id = id.replace('%20', ' ')
     figures = getFigures(id)
     return {'figures': figures}

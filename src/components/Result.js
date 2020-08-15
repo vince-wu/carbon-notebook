@@ -18,7 +18,7 @@ function Result({sample}) {
                 <Card.Text className='inline'>
                     {sample.description}
                     <Button 
-                    className='float-right'
+                    className='float-right ml-5'
                     variant='light'
                     size='sm'
                     onClick={handleShow}

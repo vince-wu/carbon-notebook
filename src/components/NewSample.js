@@ -60,6 +60,7 @@ function NewSample () {
                     type='submit'
                     onClick={async () => {
                         const sample = {id, formula, description, starred};
+                        const sid = id;
                         const res = await fetch('/api/add_sample', {
                             method: 'POST',
                             headers: {
@@ -70,9 +71,7 @@ function NewSample () {
     
                         if (res.ok) {
                             console.log('response worked!');
-                            let path = '/sample/' + id;
-                            setId('');
-                            setFormula('');
+                            let path = '/sample/' + sid;
                             console.log('path', path);
                             history.push(path);
                             history.go(0);

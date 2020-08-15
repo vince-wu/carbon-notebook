@@ -21,25 +21,26 @@ function DeleteSample({show, handleClose, setShow, sample}) {
             </Modal.Body>
             <Modal.Footer>
             <Button variant='secondary' onClick={handleClose}>Cancel</Button>
-                <Button 
-                    variant='danger'
-                    onClick={async () => {
-                        const res = await fetch('/api/delete_sample', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify(id)
-                        });
-                        if (res.ok) {
-                            console.log('redirecting');
-                            handleClose()
-                            return routeChange()
-                        }
-                    }}
-                >
-                    Confirm Deletion
-                </Button>
+            <Button 
+                variant='danger'
+                type='submit'
+                onClick={async () => {
+                    const res = await fetch('/api/delete_sample', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(id)
+                    });
+                    if (res.ok) {
+                        console.log('redirecting');
+                        handleClose()
+                        return routeChange()
+                    }
+                }}
+            >
+                Confirm Deletion
+            </Button>
                 
             </Modal.Footer>
         </Modal>
