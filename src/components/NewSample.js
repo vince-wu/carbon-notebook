@@ -76,7 +76,6 @@ function NewSample () {
                             history.push(path);
                             history.go(0);
                     }
-                    return
                     }}
                 >
                     Submit

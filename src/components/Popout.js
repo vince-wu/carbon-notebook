@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import NewSample from './NewSample'
 
-function Popout({show, handleClose, setShow}) {
+function Popout({show, handleClose}) {
     return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>

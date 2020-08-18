@@ -5,7 +5,7 @@ import Result from './Result'
 function ResultsList ({ samples }) {
     console.log('ResultsList', samples)
     return (
-        <ListGroup>
+        <ListGroup variant="flush">
             {samples.map(sample => {
                 return (
                     <ListGroup.Item>

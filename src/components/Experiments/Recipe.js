@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button'
 import DeleteSample from './DeleteSample';
 import { TrashIcon } from '@primer/octicons-react' 
 
-function Result({sample}) {
+function Recipe({sample}) {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -32,4 +32,4 @@ function Result({sample}) {
     )
 }
 
-export default Result
+export default Recipe

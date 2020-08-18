@@ -78,5 +78,5 @@ def sampleExists(id):
     id = id.replace('%20', ' ')
     exists = Sample.query.filter_by(id=id).first() is not None
 
-    print('does this sample exists? ', exists)
+    print('does this sample exist? ', exists)
     return {'exists': exists}
