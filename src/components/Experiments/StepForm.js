@@ -7,11 +7,11 @@ import Button from 'react-bootstrap/Button';
 import { PlusCircleIcon, NoEntryIcon, TrashIcon } from '@primer/octicons-react';
 
 
-function StepForm() {
+function StepForm({stepNum, setInsert}) {
     return (
         <Card bg='light' className='mb-sm-2'>
         <Card.Header className='pr-0 pt-1 pb-1'>
-            Step 1
+            Step {stepNum}
             <Button
                 className='float-right btn-circle'
                 variant='outline'
@@ -62,6 +62,7 @@ function StepForm() {
                 className='float-right btn-circle'
                 variant='outline'
                 size='sm'
+                onClick={() => setInsert(stepNum + 1)}
             >
                 <PlusCircleIcon size={18}/>
             </Button>

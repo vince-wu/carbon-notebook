@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom'
 
 import Figures from './Figures'
 import ReportHeader from './ReportHeader'
-import Navigation from './Navigation'
+import Navigation from '../Navigation'
 
 function Report () {
     const params = useParams()

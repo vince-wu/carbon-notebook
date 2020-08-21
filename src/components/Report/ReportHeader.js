@@ -7,26 +7,35 @@ import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form'
 import {PencilIcon} from '@primer/octicons-react'
 
-import Result from './Result';
-import EditSample from './EditSample';
+import Result from '../Result';
+import EditSample from '../EditSample';
+import LinkData from '../Media/LinkData';
 
 function ReportHeader({sample}) {
     const [show, setShow] = useState(false);
+    const [linkShow, setLinkShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const handleLinkClose = () => setLinkShow(false);
+    const handleLinkShow = () => setLinkShow(true);
     return(
         <div>
         <EditSample show={show} handleClose={handleClose} setShow={setShow} sample={sample}/>
-        <Card className ='text-center' style={{ width: '100' }}>
+        <LinkData show={linkShow} handleClose={handleLinkClose} setShow={setLinkShow}/>
+        <Card bg='light' style={{ width: '100' }}>
+            <Card.Header as='h5'>{sample.id}</Card.Header>
             <Card.Body>
-                <Card.Title>{sample.id}</Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">{sample.formula}</Card.Subtitle>
+                <Card.Text><b>Chemical Formula:</b> {sample.formula}</Card.Text>
                 <Card.Text className='d-inline'>
-                    {sample.description}
+                    <b>Description: </b>{sample.description}
                     <Button bsSize="xsmall" className='btn-light float-right' onClick={handleShow}>
                         <PencilIcon></PencilIcon> </Button>
                 </Card.Text>
             </Card.Body>
+            <Card.Footer>
+                <Button className='mr-2' size='sm' variant='secondary' onClick={handleLinkShow}>Link Data</Button>
+                <Button className='mr-2' size='sm' variant='secondary'>Run Script</Button>
+            </Card.Footer>
         </Card>
         </div>
 

@@ -10,6 +10,9 @@ function Fig({figure}) {
                 src={figure}
                 width='500'
             />
+            <Figure.Caption>
+                {figure}
+            </Figure.Caption>
         </Figure>
     )
 }

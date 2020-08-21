@@ -1,14 +1,10 @@
 from flask import Blueprint, jsonify, request, render_template
 from . import db
-from .models import Sample
-from .backend.getFigures import getFigures
-import time
+from .models import Sample, DataLink
+from .backend.getFigures import getFigures  
 
 main = Blueprint('main', __name__)
 
-@main.route('/time')
-def get_current_time():
-    return {'time': time.time()}
 
 @main.route('/api/add_sample', methods=['POST'])
 def add_sample():
@@ -26,13 +22,7 @@ def add_sample():
 @main.route('/api/edit_sample', methods=['POST'])
 def edit_sample():
     sample_data = request.get_json()
-    edited_sample = {
-        'id' :sample_data['id'], 
-        'formula': sample_data['formula'], 
-        'description': sample_data['description'],
-        'starred': sample_data['starred']
-    }
-    Sample.query.filter_by(id=sample_data['id']).update(edited_sample)
+    Sample.query.filter_by(id=sample_data['id']).update(sample_data)
     db.session.commit()
     return 'Done', 201
 
@@ -40,7 +30,6 @@ def edit_sample():
 def delete_sample():
     id = request.get_json()
     id = id.replace('%20', ' ')
-    print("id", id)
     Sample.query.filter_by(id=id).delete()
     db.session.commit()
     return 'Done', 201
@@ -80,3 +69,33 @@ def sampleExists(id):
 
     print('does this sample exist? ', exists)
     return {'exists': exists}
+
+@main.route('/api/add_link')
+def add_link():
+    link_data = request.get_json()
+    new_link = DataLink(
+        directoryPath=link_data['dirPath'], 
+        scriptPath=link_data['scriptPath'], 
+        dataType=link_data['dataType'],
+        title=link_data['title'],
+        description=link_data['description']
+    )
+    db.session.add(new_link)
+    db.session.commit()
+    return 'Done', 201
+
+@main.route('/api/edit_link')
+def edit_link():
+    link_data = request.get_json()
+    DataLink.query.filter_by(title=link_data['title']).update(link_data)
+    db.session.commit()
+    return 'Done', 201
+
+@main.route('/api/remove_link')
+def remove_link():
+    title = request.get_json()
+    title = title.replace('%20', ' ')
+    Sample.query.filter_by(title=title).delete()
+    db.session.commit()
+    return 'Done', 201
+

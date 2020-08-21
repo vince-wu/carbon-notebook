@@ -4,10 +4,12 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import ListGroup from 'react-bootstrap/ListGroup';
 import Card from 'react-bootstrap/Card';
 import { useHistory } from 'react-router-dom';
 
 import StepForm from './StepForm';
+import StepList from './StepList';
 
 
 
@@ -18,6 +20,18 @@ function NewRecipeTemplate ({show, handleClose}) {
     const [description, setDescription] = useState('');
     const [starred, setStarred] = useState(false);
     const history = useHistory();
+    const [insert, setInsert] = useState(1);
+    const [stepArr, setStepArr] = useState([]); 
+    
+    useEffect(() => {
+        console.log('To be inserted: ', insert)
+        const stepNum = insert;
+        const newArr = [...stepArr];
+
+        newArr.splice(stepNum, 0, <StepForm stepNum={stepNum} setInsert={setInsert}/>);
+        setStepArr(newArr);
+    }, [insert])
+
     return (
         <Modal  size='lg' show={show} onHide={handleClose} backdrop='static'>
         <Modal.Header closeButton>
@@ -32,7 +46,7 @@ function NewRecipeTemplate ({show, handleClose}) {
                         />
                     </Col>
                 </Form.Group>
-                <StepForm/>
+                <StepList stepArr={stepArr}/>
                 <Form.Group as={Row}>
                 <Col>
                 <Button 

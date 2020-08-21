@@ -3,8 +3,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 import './App.css';
 import Home from './components/Home'
-import Report from './components/Report'
-import ReportHeader from './components/ReportHeader'
+import Report from './components/Report/Report'
+import ReportHeader from './components/Report/ReportHeader'
 
 
 function App() {

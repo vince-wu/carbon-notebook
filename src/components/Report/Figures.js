@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import ListGroup from 'react-bootstrap/ListGroup'
-import Fig from './Figure'
+import ListGroup from 'react-bootstrap/ListGroup';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
+import Fig from './Figure';
 
 function Figures ({ sample }) {
     console.log('Figures', sample)
@@ -14,15 +18,17 @@ function Figures ({ sample }) {
         );
       }, [sample])
     return (
-        <ListGroup>
+        <Container>
+            <Row>
             {figures.map(figure => {
                 return (
-                    <ListGroup.Item>
+                    <Col xs={6}> 
                         <Fig figure={figure}/>
-                    </ListGroup.Item>
+                    </Col>
                 )
             })}
-        </ListGroup>
+            </Row>
+        </Container>
     )
 }
 
