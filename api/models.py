@@ -12,16 +12,28 @@ class Movie(db.Model):
     title = db.Column(db.String(50))
     rating = db.Column(db.Integer)
 
-class Sample(db.Model):
-    id = db.Column(db.String(50), primary_key=True)
+class Samples(db.Model):
+    __tablename__ = 'samples'
+    id = db.Column(db.String(), primary_key=True)
     formula = db.Column(db.String(50))
     description = db.Column(db.String())
     starred = db.Column(db.Boolean)
     project = db.Column(db.String())
 
-class DataLink(db.Model):
+    script_params = db.relationship('ScriptParams', backref='sample', lazy='dynamic')
+
+class DataLinks(db.Model):
+    __tablename__ = 'data_links'
     directoryPath = db.Column(db.String())
     scriptPath = db.Column(db.String())
     dataType = db.Column(db.String())
-    title = db.Column(db.String(), primary_key=True)
+    name = db.Column(db.String(), primary_key=True)
     description = db.Column(db.String())
+
+class ScriptParams(db.Model):
+    __tablename__ = 'script_params'
+    id = db.Column(db.Integer, primary_key=True)
+    sample_id = db.Column(db.String(), db.ForeignKey('samples.id'))
+    paramName = db.Column(db.String())
+    value = db.Column(db.String())
+    valueType = db.Column(db.String())

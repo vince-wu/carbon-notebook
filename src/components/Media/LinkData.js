@@ -9,7 +9,7 @@ import { useHistory } from 'react-router-dom';
 function LinkData ({show, handleClose, setShow}) {
     const [dirPath, setDirPath] = useState('');
     const [scriptPath, setScriptPath] = useState('');
-    const [title, setTitle] = useState('');
+    const [name, setName] = useState('');
     const [dataType, setDataType] = useState('');
     const [description, setDescription] = useState('');
     return (
@@ -41,12 +41,12 @@ function LinkData ({show, handleClose, setShow}) {
                     </Form.Group>
                     <Form.Row>
                     <Form.Group as={Col}>
-                            <Form.Label>Data Title</Form.Label>
+                            <Form.Label>Dataset Name</Form.Label>
                             <Form.Control 
                                 type='text'
                                 placeholder='Electrochemistry'
-                                value = {title}
-                                onChange={e => setTitle(e.target.value)}
+                                value = {name}
+                                onChange={e => setName(e.target.value)}
                             />
                     </Form.Group>
                     <Form.Group as={Col}>
@@ -76,10 +76,9 @@ function LinkData ({show, handleClose, setShow}) {
                     <Button 
                         className = 'float-right'
                         variant="primary" 
-                        type="submit"
-                        value='Submit'
+                        // type="submit"
                         onClick={async () => {
-                            const link = {dirPath, scriptPath, title, dataType, description};
+                            const link = {dirPath, scriptPath, name, dataType, description};
                             const res = await fetch('/api/add_link', {
                                 method: 'POST',
                                 headers: {

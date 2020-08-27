@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request, render_template
 from . import db
-from .models import Sample, DataLink
-from .backend.getFigures import getFigures  
+from .models import Samples, DataLinks
+from .backend.dataHandling import getFigures  
 
 main = Blueprint('main', __name__)
 
@@ -9,7 +9,7 @@ main = Blueprint('main', __name__)
 @main.route('/api/add_sample', methods=['POST'])
 def add_sample():
     sample_data = request.get_json()
-    new_sample = Sample(
+    new_sample = Samples(
         id=sample_data['id'], 
         formula=sample_data['formula'], 
         description=sample_data['description'],
@@ -22,7 +22,7 @@ def add_sample():
 @main.route('/api/edit_sample', methods=['POST'])
 def edit_sample():
     sample_data = request.get_json()
-    Sample.query.filter_by(id=sample_data['id']).update(sample_data)
+    Samples.query.filter_by(id=sample_data['id']).update(sample_data)
     db.session.commit()
     return 'Done', 201
 
@@ -30,14 +30,14 @@ def edit_sample():
 def delete_sample():
     id = request.get_json()
     id = id.replace('%20', ' ')
-    Sample.query.filter_by(id=id).delete()
+    Samples.query.filter_by(id=id).delete()
     db.session.commit()
     return 'Done', 201
 
 
 @main.route('/api/samples')
 def samples():
-    sample_list = Sample.query.all()
+    sample_list = Samples.query.all()
     samples = []
     for sample in sample_list:
         samples.append({
@@ -51,7 +51,7 @@ def samples():
 @main.route('/api/sample/<id>')
 def sampleReport(id):
     id = id.replace('%20', ' ')
-    row = Sample.query.filter_by(id=id).first()
+    row = Samples.query.filter_by(id=id).first()
     sample = dict((col, getattr(row, col)) for col in row.__table__.columns.keys())
     print(sample)
     return {'sample': sample}
@@ -65,37 +65,37 @@ def sampleFigures(id):
 @main.route('/api/sample_exists/<id>')
 def sampleExists(id):
     id = id.replace('%20', ' ')
-    exists = Sample.query.filter_by(id=id).first() is not None
+    exists = Samples.query.filter_by(id=id).first() is not None
 
     print('does this sample exist? ', exists)
     return {'exists': exists}
 
-@main.route('/api/add_link')
+@main.route('/api/add_link', methods=['POST'])
 def add_link():
     link_data = request.get_json()
-    new_link = DataLink(
+    new_link = DataLinks(
         directoryPath=link_data['dirPath'], 
         scriptPath=link_data['scriptPath'], 
         dataType=link_data['dataType'],
-        title=link_data['title'],
+        name=link_data['name'],
         description=link_data['description']
     )
     db.session.add(new_link)
     db.session.commit()
     return 'Done', 201
 
-@main.route('/api/edit_link')
+@main.route('/api/edit_link', methods=['POST'])
 def edit_link():
     link_data = request.get_json()
-    DataLink.query.filter_by(title=link_data['title']).update(link_data)
+    DataLinks.query.filter_by(name=link_data['name']).update(link_data)
     db.session.commit()
     return 'Done', 201
 
-@main.route('/api/remove_link')
+@main.route('/api/remove_link', methods=['POST'])
 def remove_link():
-    title = request.get_json()
-    title = title.replace('%20', ' ')
-    Sample.query.filter_by(title=title).delete()
+    name = request.get_json()
+    name = name.replace('%20', ' ')
+    Samples.query.filter_by(name=name).delete()
     db.session.commit()
     return 'Done', 201
 

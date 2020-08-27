@@ -11,5 +11,7 @@ migrate = Migrate(app, db)
 
 from api import models
 from .views import main
+from .models import *
 app.register_blueprint(main)
+
 
